@@ -61,14 +61,14 @@ function createCamera (regl, propsOverride) {
   if (isBrowser && props.mouse) {
     var prevX = 0
     var prevY = 0
-    var el = element || window
-    var elw = element ? element.offsetWidth : window.innerWidth
-    var elh = element ? element.offsetHeight : window.innerHeight
+    var elementListen = element || window
+    var width = element ? element.offsetWidth : window.innerWidth
+    var height = element ? element.offsetHeight : window.innerHeight
 
-    mouseChange(el, function (buttons, x, y) {
+    mouseChange(elementListen, function (buttons, x, y) {
       if (buttons & 1) {
-        var dx = (x - prevX) / elw
-        var dy = (y - prevY) / elh
+        var dx = (x - prevX) / width
+        var dy = (y - prevY) / height
         var w = Math.max(cameraState.distance, 0.5)
 
         cameraState.dtheta += w * dx
@@ -78,8 +78,8 @@ function createCamera (regl, propsOverride) {
       prevY = y
     })
 
-    mouseWheel(el, function (dx, dy) {
-      ddistance += dy / elh
+    mouseWheel(elementListen, function (dx, dy) {
+      ddistance += dy / height
     })
   }
 
