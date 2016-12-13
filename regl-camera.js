@@ -27,6 +27,7 @@ function createCamera (regl, props_) {
     dphi: 0
   }
 
+  var element = props.element
   var damping = typeof props.damping !== 'undefined' ? props.damping : 0.9
 
   var right = new Float32Array([1, 0, 0])
@@ -41,10 +42,13 @@ function createCamera (regl, props_) {
   var prevY = 0
 
   if (isBrowser && props.mouse !== false) {
-    mouseChange(function (buttons, x, y) {
+    var el = element || window
+    var elw = element ? element.offsetWidth : window.innerWidth
+    var elh = element ? element.offsetHeight : window.innerHeight
+    mouseChange(el, function (buttons, x, y) {
       if (buttons & 1) {
-        var dx = (x - prevX) / window.innerWidth
-        var dy = (y - prevY) / window.innerHeight
+        var dx = (x - prevX) / elw
+        var dy = (y - prevY) / elh
         var w = Math.max(cameraState.distance, 0.5)
 
         cameraState.dtheta += w * dx
@@ -53,8 +57,8 @@ function createCamera (regl, props_) {
       prevX = x
       prevY = y
     })
-    mouseWheel(function (dx, dy) {
-      ddistance += dy / window.innerHeight
+    mouseWheel(el, function (dx, dy) {
+      ddistance += dy / elh
     })
   }
 
