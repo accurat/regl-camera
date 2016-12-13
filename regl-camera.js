@@ -48,7 +48,6 @@ function createCamera (regl, propsOverride) {
   }
 
   var element = props.element
-  var damping = typeof props.damping !== 'undefined' ? props.damping : 0.9
 
   var right = new Float32Array([1, 0, 0])
   var front = new Float32Array([0, 0, 1])
