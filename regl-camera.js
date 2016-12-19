@@ -48,6 +48,17 @@ function createCamera (regl, propsOverride) {
   }
 
   var element = props.element
+  var startFovy = props.fovy
+
+  const resize = () => {
+    const width = element.clientWidth
+    const height = element.clientHeight
+    if (height / width > 1) {
+      cameraState.fovy =  startFovy * (height / width)
+    }
+  }
+  resize()
+  window.addEventListener('resize', resize)
 
   var right = new Float32Array([1, 0, 0])
   var front = new Float32Array([0, 0, 1])
