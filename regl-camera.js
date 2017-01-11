@@ -50,9 +50,9 @@ function createCamera (regl, propsOverride) {
   var element = props.element
   var startFovy = props.fovy
 
-  const resize = () => {
-    const width = element.clientWidth
-    const height = element.clientHeight
+  function resize () {
+    var width = element.clientWidth
+    var height = element.clientHeight
     if (height / width > 1) {
       cameraState.fovy =  startFovy * (height / width)
     }
