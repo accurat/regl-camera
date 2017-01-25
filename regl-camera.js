@@ -157,7 +157,11 @@ function createCamera (regl, propsOverride) {
           context.viewportWidth / context.viewportHeight,
           cameraState.near,
           cameraState.far)
+
         if (cameraState.flipY) { cameraState.projection[5] *= -1 }
+
+        updateCameraState(cameraState, setupCamera)
+
         return cameraState.projection
       }
     }),
@@ -166,6 +170,12 @@ function createCamera (regl, propsOverride) {
       return uniforms
     }, {})
   })
+
+  function updateCameraState(cameraState, setupCamera) {
+    Object.keys(cameraState).forEach(function (name) {
+      setupCamera[name] = cameraState[name]
+    })
+  }
 
   function setupCamera (props, block) {
     if (!block) {
@@ -176,9 +186,7 @@ function createCamera (regl, propsOverride) {
     injectContext(block)
   }
 
-  Object.keys(cameraState).forEach(function (name) {
-    setupCamera[name] = cameraState[name]
-  })
+  updateCameraState(cameraState, setupCamera)
 
   return setupCamera
 }
