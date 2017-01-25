@@ -44,7 +44,6 @@ function createCamera (regl, propsOverride) {
     far: props.far,
     flipY: Boolean(props.flipY),
     dtheta: 0,
-    dphi: 0
     dphi: 0,
     mouseEnabled: true,
   }
