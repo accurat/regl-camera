@@ -45,6 +45,8 @@ function createCamera (regl, propsOverride) {
     flipY: Boolean(props.flipY),
     dtheta: 0,
     dphi: 0
+    dphi: 0,
+    mouseEnabled: true,
   }
 
   var element = props.element
@@ -76,6 +78,7 @@ function createCamera (regl, propsOverride) {
     var height = element ? element.offsetHeight : window.innerHeight
 
     mouseChange(elementListen, function (buttons, x, y) {
+      if (!cameraState.mouseEnabled) return
       if (buttons & 1) {
         var dx = (x - prevX) / width
         var dy = (y - prevY) / height
@@ -89,6 +92,7 @@ function createCamera (regl, propsOverride) {
     })
 
     mouseWheel(elementListen, function (dx, dy) {
+      if (!cameraState.mouseEnabled) return
       ddistance += dy / height
     })
   }
